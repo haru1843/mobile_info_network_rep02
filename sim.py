@@ -338,7 +338,7 @@ def main(cell_length):
     ave_service_time = 1
     capacity = 3
     cell_num = 5
-    stop_all_call = 20000
+    stop_all_call = 100000
 
     # cell_length = 9
 
