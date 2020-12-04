@@ -32,7 +32,7 @@ def main():
     ax.set_xlim([np.min(sim_traffic_intensity), np.max(sim_traffic_intensity)])
 
     ax.set_xlabel("呼量")
-    ax.set_ylabel("全呼に対するハンドオフ呼の割合")
+    ax.set_ylabel("ハンドオフ呼に対する呼損率")
 
     ax.legend()
 
