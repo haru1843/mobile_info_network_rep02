@@ -30,14 +30,12 @@ def main():
         sim_traffic_intensity = sim_result["prob_of_reach"] * sim_result["ave_service_time"]
 
         ax.plot(sim_traffic_intensity, sim_result["block_rate"],
-                color=color, alpha=0.9, label=f"1セルあたりの通過時間$t={segment_time}$", lw=1.2)
+                color=color, alpha=0.9, label=f"$T_c={segment_time}$", lw=1.2)
 
     ax.set_xlim([np.min(sim_traffic_intensity), np.max(sim_traffic_intensity)])
 
     ax.set_xlabel("呼量")
     ax.set_ylabel("呼損率")
-
-    # ax.set_xscale("log")
 
     ax.legend()
 

@@ -11,13 +11,11 @@ def main():
 
     fig, ax = plt.subplots(1, 1, figsize=(10, 6))
 
-    # アーランB式での結果をプロット
+    # アーランB式の結果を読み込む
     erlang_result = pd.read_csv(f"./output/erlang_cap={15}.csv")
-    ax.plot(erlang_result["traffic_intensity"], erlang_result["block_rate"],
-            color="gray", alpha=1, ls=":", lw=2, zorder=999, label=f"アーランB式")
 
     # 移動ありでの結果をプロット
-    cell_len_list = [0.01, 0.1, 1, 10, 100, 1000] + [0.29296875]
+    cell_len_list = [0.01, 0.1, 1, 10, 100, 1000]
     color_list = [f"C{i}" for i in range(len(cell_len_list))]
 
     cap_num = 15
@@ -32,8 +30,9 @@ def main():
         sim_traffic_intensity = sim_result["prob_of_reach"] * sim_result["ave_service_time"]
 
         ax.plot(sim_traffic_intensity, sim_result["block_rate"],
-                color=color, alpha=0.9, label=f"1セルあたりの通過時間$t={segment_time}$", lw=1.2)
+                color=color, alpha=0.9, label=f"$T_c={segment_time}$", lw=1.2)
 
+        # 提案計算手法
         calc = erlang_result["block_rate"] * (erlang_result["traffic_intensity"] /
                                               (erlang_result["traffic_intensity"] + (erlang_result["block_rate"] * cap_num * (1/segment_time))))
 
@@ -42,7 +41,7 @@ def main():
             calc,
             color=color,
             ls=":",
-            label=f"計算値(segment_time={segment_time})"
+            label=f"計算値(T_c={segment_time})"
         )
 
     ax.set_xlim([np.min(sim_traffic_intensity), np.max(sim_traffic_intensity)])
@@ -54,7 +53,7 @@ def main():
 
     ax.grid()
 
-    plt.savefig("./img/block_rate.png")
+    plt.savefig("./img/calc_block_rate.png")
 
     plt.show()
 
